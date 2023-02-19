@@ -1,3 +1,5 @@
+using LambdaSample.Core.Services;
+
 namespace LambdaSample.Api;
 
 public class Startup
@@ -13,6 +15,8 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+
+        services.AddSingleton<IUserService, UserService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

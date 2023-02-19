@@ -14,4 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="7.3.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LambdaSample.Core\LambdaSample.Core.csproj" />
+  </ItemGroup>
 </Project>
