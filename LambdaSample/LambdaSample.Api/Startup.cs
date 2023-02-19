@@ -1,4 +1,5 @@
 using LambdaSample.Core.Services;
+using LambdaSample.Middleware.Services;
 
 namespace LambdaSample.Api;
 
@@ -17,6 +18,7 @@ public class Startup
         services.AddControllers();
 
         services.AddSingleton<IUserService, UserService>();
+        services.AddSingleton<ITkambioService, TkambioService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

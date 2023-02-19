@@ -16,5 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LambdaSample.Core\LambdaSample.Core.csproj" />
+    <ProjectReference Include="..\LambdaSample.Middleware\LambdaSample.Middleware.csproj" />
   </ItemGroup>
 </Project>
