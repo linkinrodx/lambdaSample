@@ -1,4 +1,7 @@
+using Amazon;
+using Amazon.DynamoDBv2;
 using LambdaSample.Core.Services;
+using LambdaSample.Core.Settings;
 using LambdaSample.Middleware.Services;
 
 namespace LambdaSample.Api;
@@ -16,9 +19,14 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddSwaggerGen();
+
+        services.Configure<DatabaseSettings>(Configuration.GetSection(DatabaseSettings.KeyName));
+        services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.USEast1));
 
         services.AddSingleton<IUserService, UserService>();
         services.AddSingleton<ITkambioService, TkambioService>();
+        services.AddSingleton<IDynamoService, DynamoService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -27,6 +35,12 @@ public class Startup
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
+            });
         }
 
         app.UseHttpsRedirection();
