@@ -2,7 +2,6 @@
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using LambdaSample.Core.Models;
-using LambdaSample.Core.Models.Requests;
 using LambdaSample.Core.Settings;
 using Microsoft.Extensions.Options;
 using System.Net;
@@ -21,7 +20,7 @@ namespace LambdaSample.Core.Services
             _databaseSettings = databaseSettings;
         }
 
-        public async Task<bool> CreateAsync(ParentRequest parent)
+        public async Task<bool> CreateAsync(Parent parent)
         {
             var customerAsJson = JsonSerializer.Serialize(parent);
             var itemAsDocument = Document.FromJson(customerAsJson);
@@ -37,14 +36,15 @@ namespace LambdaSample.Core.Services
             return response.HttpStatusCode == HttpStatusCode.OK;
         }
 
-        public async Task<Parent?> GetAsync(int id)
+        public async Task<Parent?> GetAsync(Guid id)
         {
             var request = new GetItemRequest
             {
                 TableName = _databaseSettings.Value.TableName,
                 Key = new Dictionary<string, AttributeValue>
                 {
-                    { "Id", new AttributeValue { S = id.ToString() } }
+                    { "pk", new AttributeValue { S = id.ToString() } },
+                    { "sk", new AttributeValue { S = id.ToString() } }
                 }
             };
 

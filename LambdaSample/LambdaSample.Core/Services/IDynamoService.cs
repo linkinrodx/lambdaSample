@@ -1,12 +1,11 @@
 ﻿using LambdaSample.Core.Models;
-using LambdaSample.Core.Models.Requests;
 
 namespace LambdaSample.Core.Services
 {
     public interface IDynamoService
     {
-        Task<bool> CreateAsync(ParentRequest parent);
+        Task<bool> CreateAsync(Parent parent);
 
-        Task<Parent?> GetAsync(int id);
+        Task<Parent?> GetAsync(Guid id);
     }
 }

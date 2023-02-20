@@ -21,6 +21,8 @@ public class Startup
         services.AddControllers();
         services.AddSwaggerGen();
 
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         services.Configure<DatabaseSettings>(Configuration.GetSection(DatabaseSettings.KeyName));
         services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.USEast1));
 
